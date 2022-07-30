@@ -1,0 +1,5 @@
+if game.PlaceId == 9840387028 then -- Era Of Althea
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/momenthubv3/PaidGurahub/main/Era%20Of%20Althea"))()
+elseif game.PlaceId == 9210611498 then -- Miami Florida Rolepay
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/momenthubv3/PaidGurahub/main/Miamai%20UniKey"))()
+end

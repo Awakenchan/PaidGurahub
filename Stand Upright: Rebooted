@@ -1,0 +1,908 @@
+
+    getgenv().Mob = ""
+    ---SETTINGS---
+    _G.Settings = {
+    	-- Player Tab
+    	NoRagdoll = false,
+    	-- Autofarm
+    	ActiveItemFarm = false,
+    	-- Item To Farm
+    	StandArrow = false,
+    	Rokakaka = false,
+    	ChargedArrow = false,
+    	RequiemArrow = false,
+    	StoneMask = false,
+    	GreenBaby = false,
+    	DioDiary = false,
+    	Ketchup = false,
+    	-- Mob Farm
+    	Distance = 6,
+    	MobFarm = false,
+    	-- AutoM1 = false,
+    	-- AutoSkill
+    
+    	-- Misc
+    	ShowSpawnLocation = false
+    }
+    ---SAVE---
+    local foldername = "Gura Hub"
+    local filename = "Stand Upright.lua"
+    ---CONFIG NAME OF YOUR FOLDER AND FILE---
+    
+    ---REST OF SAVE---
+    function saveSettings()
+        local HttpService = game:GetService("HttpService")
+        local json = HttpService:JSONEncode(_G.Settings)
+        if (writefile) then
+            if isfolder(foldername) then
+                writefile(foldername.."\\"..filename, json)
+            else
+                makefolder(foldername)
+                writefile(foldername.."\\"..filename, json)
+            end
+        end
+    end
+    
+    function loadSettings()
+        local HttpService = game:GetService("HttpService")
+        if isfile(foldername.."\\"..filename) then
+            _G.Settings = HttpService:JSONDecode(readfile(foldername.."\\"..filename))
+        end
+    end
+    loadSettings()
+    
+    local hook
+    hook = hookmetamethod(game, '__index', newcclosure(function(self, key)
+        if tostring(self) == 'Humanoid' and tostring(key) == 'WalkSpeed' then
+            return 16
+        end
+        return hook(self, key)
+    end))
+    
+    local vu = game:GetService("VirtualUser")
+    game:GetService("Players").LocalPlayer.Idled:connect(function()
+       vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+       wait(1)
+       vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+    end)
+    for i,v in pairs(game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]:GetChildren()) do
+    	v.Name = i				
+    end
+    local mychar = game.Players.LocalPlayer.Character
+    
+    
+    game:GetService("ReplicatedStorage").Events.PressedPlay:FireServer()
+    
+    local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
+    
+    local GUI = Mercury:Create{
+        Name = "Welcome",
+        Size = UDim2.fromOffset(600, 400),
+        Theme = Mercury.Themes.Dark,
+        Link = "Gura Hub"
+    }
+    
+    GUI:Notification{
+    	Title = "Info",
+    	Text = "Bypassed Anti Walkspeed!",
+    	Duration = 3,
+    	Callback = function() end
+    }
+    
+    local Tab = GUI:Tab{
+    	Name = "Player",
+    	Icon = "rbxassetid://6022668887"
+    }
+    Tab:Button{
+    	Name = "Invisible",
+    	Description = "Makes yourself Invisible [Jumping may fling you]",
+    	Callback = function()
+    		yes = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
+    
+    		game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-76188, 57, -1573)}):Play()
+    		wait(0.5)
+    		if game:GetService("Players").LocalPlayer.Character.LowerTorso:FindFirstChild("Root") then
+    			game:GetService("Players").LocalPlayer.Character.LowerTorso.Root:Remove()
+    		end
+    		if game:GetService("Players").LocalPlayer.Character.UpperTorso:FindFirstChild("Waist") then
+    			game:GetService("Players").LocalPlayer.Character.UpperTorso.Waist:Remove()
+    		end
+    		wait(1)
+    		game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = yes
+        end
+    }
+    Tab:Toggle{
+    	Name = "No ragdoll",
+    	StartingState = _G.Settings.NoRagdoll,
+    	Description = nil,
+    	Callback = function(state)
+    
+    		_G.Settings.NoRagdoll = state
+            
+    		saveSettings()
+    		getgenv().ActiveNoRagdoll = _G.Settings.NoRagdoll
+    
+    		getgenv().ActiveNoRagdoll = state
+    		spawn(function()
+    		    while getgenv().ActiveNoRagdoll do
+    		    	su = game.Players.LocalPlayer.Character:FindFirstChild("RagdollMe")
+    		    	if su then
+    		    		game.Players.LocalPlayer.Character.RagdollMe.Disabled = true
+    		    	end
+    		    	wait()
+    		    end
+    		end)
+    
+    
+    		if state == false then
+    			game.Players.LocalPlayer.Character.RagdollMe.Disabled = false
+    		end
+    	end
+    }
+    Tab:Slider{
+    	Name = "Walk Speed",
+    	Default = 16,
+    	Min = 16,
+    	Max = 250,
+    	Callback = function(Value)
+            game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = Value
+        end
+    }
+    
+    Tab:Slider{
+    	Name = "Jump Power",
+    	Default = 50,
+    	Min = 50,
+    	Max = 500,
+    	Callback = function(Value)
+            game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = Value
+        end
+    }
+    --[[ -- NOT WORKING! The user Still see you not moving and can tuch you during it while you move
+    Tab:Toggle{
+    	Name = "Anti TS",
+    	StartingState = false,
+    	Description = nil,
+    	Callback = function(state)
+    		getgenv().AntiTS = state
+    
+    		while getgenv().AntiTS do
+    			goofy = game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    			tsvalue = game:GetService("Players").LocalPlayer.Character:FindFirstChild("InStoppedTime")
+    
+    			if goofy then
+    				if game:GetService("Players").LocalPlayer.Character.InStoppedTime.Value == true then
+    					for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+    						if v:IsA("BasePart") then
+    							v.Anchored = false
+    						end
+    					end
+    				end
+    			end
+    			wait()
+    		end
+    	end
+    }
+    ]]
+    Tab:Button{
+    	Name = "Fast Reset",
+    	Description = "Reset faster",
+    	Callback = function() 
+    		if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Head") then
+    			game:GetService("Players").LocalPlayer.Character:FindFirstChild("Head"):Destroy()
+    	    end
+        end
+    }
+    
+    local Tab = GUI:Tab{
+    	Name = "Item Farm",
+    	Icon = "rbxassetid://6031075939"
+    }
+    Tab:Button{
+    	Name = "Set SpawnPoint",
+    	Description = nil,
+    	Callback = function()
+    		spawnpointcf = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position
+    		havelocationsaved = true
+    		GUI:Notification{
+    			Title = "Info",
+    			Text = "Location Saved",
+    			Duration = 3,
+    			Callback = function() end
+    		}
+    	end
+    }
+    Tab:Button{
+    	Name = "Goto SpawnPoint",
+    	Description = nil,
+    	Callback = function()
+    		if havelocationsaved == true then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(spawnpointcf)}):Play()
+    		else
+    			GUI:Notification{
+    				Title = "Info",
+    				Text = "You must have set SpawnPoint",
+    				Duration = 3,
+    				Callback = function()
+    				end
+    			}
+    		end
+    	end
+    }
+    local iteminserver = Tab:Label{
+    	Text = "Items In Server :",
+    	Description =  "If you see this message Report it to the owner!"
+    }
+    task.spawn(function()
+        while wait() do
+    		local count = 0
+    		for _,v in pairs(game:GetService("Workspace").Items:GetChildren()) do
+    			count = count + 1
+    		end
+    		iteminserver:SetDescription(count)
+        end
+    end)
+    tweenspeed = 1
+    Tab:Slider{
+    	Name = "Speed [Lower = faster]",
+    	Default = 1,
+    	Min = 1,
+    	Max = 10,
+    	Callback = function(Value)
+    		tweenspeed = Value
+    	end
+    }
+    Tab:Toggle{
+    	Name = "Item Farm",
+    	StartingState = _G.Settings.ActiveItemFarm,
+    	Description = nil,
+    	Callback = function(state)
+    		_G.Settings.ActiveItemFarm = state
+    		saveSettings()
+    
+    		getgenv().FarmItem = _G.Settings.ActiveItemFarm
+    
+    		spawn(function()
+    		    while getgenv().FarmItem do
+    		    	if getgenv().FarmArrow == true then
+    		    		if game:GetService("Workspace").Items:FindFirstChild("Stand Arrow") then
+    		    			cf = game:GetService("Workspace").Items:FindFirstChild("Stand Arrow").Handle.Position
+    		    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(tweenspeed, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(cf)}):Play()
+    		    			wait(tweenspeed)
+    		    		end
+    		    	end
+    		    	if getgenv().FarmRokakaka == true then
+    		    		if game:GetService("Workspace").Items:FindFirstChild("Rokakaka") then
+    		    			cf = game:GetService("Workspace").Items:FindFirstChild("Rokakaka").Handle.Position
+    		    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(tweenspeed, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(cf)}):Play()
+    		    			wait(tweenspeed)
+    		    		end
+    		    	end
+    		    	if getgenv().FarmChargedArrow == true then
+    		    		if game:GetService("Workspace").Items:FindFirstChild("Charged Arrow") then
+    		    			cf = game:GetService("Workspace").Items:FindFirstChild("Charged Arrow").Handle.Position
+    		    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(tweenspeed, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(cf)}):Play()
+    		    			wait(tweenspeed)
+    		    		end
+    		    	end
+    		    	if getgenv().FarmRequiemArrow == true then
+    		    		if game:GetService("Workspace").Items:FindFirstChild("Requiem Arrow") then
+    		    			cf = game:GetService("Workspace").Items:FindFirstChild("Requiem Arrow").Handle.Position
+    		    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(tweenspeed, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(cf)}):Play()
+    		    			wait(tweenspeed)
+    		    		end
+    		    	end
+    		    	if getgenv().FarmStoneMask == true then
+    		    		if game:GetService("Workspace").Items:FindFirstChild("Stone Mask") then
+    		    			cf = game:GetService("Workspace").Items:FindFirstChild("Stone Mask").Handle.Position
+    		    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(tweenspeed, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(cf)}):Play()
+    		    			wait(tweenspeed)
+    		    		end
+    		    	end
+    		    	if getgenv().FarmGreenBaby == true then
+    		    		if game:GetService("Workspace").Items:FindFirstChild("Green Baby") then
+    		    			cf = game:GetService("Workspace").Items:FindFirstChild("Green Baby").Handle.Position
+    		    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(tweenspeed, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(cf)}):Play()
+    		    			wait(tweenspeed)
+    		    		end
+    		    	end
+    		    	if getgenv().FarmDiosDiary == true then
+    		    		if game:GetService("Workspace").Items:FindFirstChild("Dio's Diary") then
+    		    			cf = game:GetService("Workspace").Items:FindFirstChild("Dio's Diary").Handle.Position
+    		    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(tweenspeed, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(cf)}):Play()
+    		    			wait(tweenspeed)
+    		    		end
+    		    	end
+    		    	if getgenv().FarmKetchup == true then
+    		    		if game:GetService("Workspace").Items:FindFirstChild("Ketchup") then
+    		    			cf = game:GetService("Workspace").Items:FindFirstChild("Ketchup").Handle.Position
+    		    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(tweenspeed, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(cf)}):Play()
+    		    			wait(tweenspeed)
+    		    		end
+    		    	end
+    		    	game.Players.LocalPlayer.Character.Humanoid.Sit = false
+    		    	wait()
+    		    end
+    		end)
+    	end
+    }
+    
+    Tab:Label{
+    	Text = "Items to farm :",
+    	Description =  "Select the folowing items"
+    }
+    Tab:Toggle{
+    	Name = "Stand Arrow",
+    	StartingState = _G.Settings.StandArrow,
+    	Description = nil,
+    	Callback = function(state)
+    		_G.Settings.StandArrow = state
+            
+    		saveSettings()
+    		getgenv().FarmArrow = _G.Settings.StandArrow
+    
+    	end
+    }
+    Tab:Toggle{
+    	Name = "Rokakaka",
+    	StartingState = _G.Settings.Rokakaka,
+    	Description = nil,
+    	Callback = function(state)
+    		_G.Settings.Rokakaka = state
+    		
+    		saveSettings()
+    		getgenv().FarmRokakaka = _G.Settings.Rokakaka
+    	end
+    }
+    Tab:Toggle{
+    	Name = "Charged Arrow",
+    	StartingState = _G.Settings.ChargedArrow,
+    	Description = nil,
+    	Callback = function(state)
+    		_G.Settings.ChargedArrow = state
+    
+    		saveSettings()
+    		getgenv().FarmChargedArrow = _G.Settings.ChargedArrow
+    	end
+    }
+    Tab:Toggle{
+    	Name = "Requiem Arrow",
+    	StartingState = _G.Settings.RequiemArrow,
+    	Description = nil,
+    	Callback = function(state)
+    		_G.Settings.RequiemArrow = state
+    
+    		saveSettings()
+    		getgenv().FarmRequiemArrow = _G.Settings.RequiemArrow
+    	end
+    }
+    Tab:Toggle{
+    	Name = "Stone Mask",
+    	StartingState = _G.Settings.StoneMask,
+    	Description = nil,
+    	Callback = function(state)
+    		_G.Settings.StoneMask = state
+    
+    		saveSettings()
+    		getgenv().FarmStoneMask = _G.Settings.StoneMask
+    	end
+    }
+    Tab:Toggle{
+    	Name = "Green Baby",
+    	StartingState = _G.Settings.GreenBaby,
+    	Description = nil,
+    	Callback = function(state)
+    		_G.Settings.GreenBaby = state
+    
+    		saveSettings()
+    		getgenv().FarmGreenBaby = _G.Settings.GreenBaby
+    	end
+    }
+    Tab:Toggle{
+    	Name = "Dio's Diary",
+    	StartingState = _G.Settings.DioDiary,
+    	Description = nil,
+    	Callback = function(state)
+    		_G.Settings.DioDiary = state
+    
+    		saveSettings()
+    		getgenv().FarmDiosDiary = _G.Settings.DioDiary
+    	end
+    }
+    Tab:Toggle{
+    	Name = "Ketchup",
+    	StartingState = _G.Settings.Ketchup,
+    	Description = nil,
+    	Callback = function(state)
+    		_G.Settings.Ketchup = state
+    
+    		saveSettings()
+    		getgenv().FarmKetchup = _G.Settings.Ketchup
+    	end
+    }
+    local Tab = GUI:Tab{
+    	Name = "Mob Farm",
+    	Icon = "rbxassetid://6031225816"
+    }
+    
+    local MyDropdown = Tab:Dropdown{
+    
+        Name = "Mod Farm",
+        StartingText = "Select An NPC",
+        Description = "Stand Required",
+        Items = {
+    		{"Bad Gi [LVl. 1+]", 1},
+    		{"Giorno Giovanna [Lvl. 5+]", 2},
+            {"Scary Monster [Lvl. 10+]", 3},
+    		{"Rker Dummy [Lvl. 15+]", 4},
+    		{"Dio Over Heaven [Lvl. 25+]", 5},
+    		{"Yoshikage Kira [Lvl. 30+]", 6},
+    		{"Angelo  [Lvl. 40+]", 7},
+            {"Alien [Lvl. 50+]", 8},
+    		{"Jotaro Kujo P4 [Lvl. 65+]", 9},
+    		{"Kakyoin [Lvl. 75+]", 10},
+    		{"Jungle Bandit [Lvl. 90+]", 11},
+    		{"Sewer Vampire [Lvl. 130+]", 12}
+            
+        },
+        Callback = function(Value)
+    		if Value == 1 then
+    			getgenv().Mob = "Bad Gi"
+    		elseif Value == 2 then
+    			getgenv().Mob = "Giorno Giovanna"
+    		elseif Value == 3 then
+    			getgenv().Mob = "Scary Monster"
+    		elseif Value == 4 then
+    			getgenv().Mob = "Rker Dummy"
+    		elseif Value == 5 then
+    			getgenv().Mob = "Dio Over Heaven"
+    		elseif Value == 6 then
+    			getgenv().Mob = "Yoshikage Kira"
+    		elseif Value == 7 then
+    			getgenv().Mob = "Angelo"
+    		elseif Value == 8 then
+    			getgenv().Mob = "Alien"
+    		elseif Value == 9 then
+    			getgenv().Mob = "Jotaro Part 4"
+    		elseif Value == 10 then
+    			getgenv().Mob = "Kakyoin"
+    		elseif Value == 11 then
+    			getgenv().Mob = "Jungle Bandit"
+    		elseif Value == 12 then
+    			getgenv().Mob = "Sewer Vampire"
+    		end
+    end
+    }
+    local MyDropdown = Tab:Dropdown{
+    	Name = "Quest",
+    	StartingText = "Automaticly get quest and Get the reward from them",
+    	Description = nil,
+    	Items = {
+    		{"Giorono Giovanna[LVl. 1+]", 1},
+    		{"Koichi [Lvl. 5+]", 2},
+    		{"Scared Noob [Lvl. 10+]", 3},
+    		{"aLLmemester [Lvl. 15+]", 4},
+    		{"Joseph Joestar [Lvl. 25+]", 5},
+    		{"Okuyasu [Lvl. 30+]", 6},
+    		{"Josuke Higashikata [Lvl. 40+]", 7},
+    		{"Rohan Kishibe [Lvl. 50+]", 8},
+    		{"DIO [Lvl. 65+]", 9},
+    		{"Muhammad Avdol [Lvl. 75+]", 10},
+    		{"Giorno Giovanna [Lvl. 90+]", 11},
+    		{"Will Anthonio Zeppeli [Lvl. 130+]", 12},
+    	},
+    	Callback = function(item)
+    		if item == 1 then
+    			getgenv().Quest = "KillBadGi"
+    		elseif item == 2 then
+    			getgenv().Quest = "KillGiorno"
+    		elseif item == 3 then
+    			getgenv().Quest = "KillMonster"
+    		elseif item == 4 then
+    			getgenv().Quest = "KillRker312"
+    		elseif item == 5 then
+    			getgenv().Quest = "KillDioOH"
+    		elseif item == 6 then
+    			getgenv().Quest = "KillKira"
+    		elseif item == 7 then
+    			getgenv().Quest = "KillAngelo"
+    		elseif item == 8 then
+    			getgenv().Quest = "KillAlien"
+    		elseif item == 9 then
+    			getgenv().Quest = "KillJotarop4"
+    		elseif item == 10 then
+    			getgenv().Quest = "KillKakyoin"
+    		elseif item == 11 then
+    			getgenv().Quest = "KillJungleGi"
+    		elseif item == 12 then
+    			getgenv().Quest = "KillSewervampires"
+    		end
+    		return
+    	end
+    }
+    
+    Tab:Toggle{
+    	Name = "Auto Get Quest",
+    	StartingState = false,
+    	Description = nil,
+    	Callback = function(state)
+    		getgenv().GetQuest = state
+    
+    		while getgenv().GetQuest do
+    			if not game:GetService("Players").LocalPlayer.Data.Quests:FindFirstChild(getgenv().Quest) then
+    				if getgenv().Quest == "KillBadGi" then
+    					game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["4"].Done:FireServer()
+    				elseif getgenv().Quest == "KillGiorno" then
+    					game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["5"].Done:FireServer()
+    				elseif getgenv().Quest == "KillMonster" then
+    					game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["6"].Done:FireServer()
+    				elseif getgenv().Quest == "KillRker312" then
+    					game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["7"].Done:FireServer()
+    				elseif getgenv().Quest == "KillDioOH" then
+    					game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["8"].Done:FireServer()
+    				elseif getgenv().Quest == "KillKira" then
+    					game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["9"].Done:FireServer()
+    				elseif getgenv().Quest == "KillAngelo" then
+    					game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["10"].Done:FireServer()
+    				end -- Seems to work if i do that
+    				if getgenv().Quest == "KillAlien" then
+    					game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["11"].Done:FireServer()
+    				elseif getgenv().Quest == "KillJotarop4" then
+    			    	game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["12"].Done:FireServer()
+    			    elseif getgenv().Quest == "KillKakyoin" then
+    			    	game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["13"].Done:FireServer()
+    				elseif getgenv().Quest == "KillJungleGi" then
+    					game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["14"].Done:FireServer()
+    				elseif getgenv().Quest == "KillSewervampires" then
+    					game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["32"].Done:FireServer()
+    				end
+    			elseif game:GetService("Players").LocalPlayer.Data.Quests:FindFirstChild(getgenv().Quest) then
+    				if game:GetService("Players").LocalPlayer.Data.Quests[getgenv().Quest].Completed.Value == true then
+    					if getgenv().Quest == "KillBadGi" then
+    						game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["4"].QuestDone:FireServer()
+    					elseif getgenv().Quest == "KillGiorno" then
+    						game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["5"].QuestDone:FireServer()
+    					elseif getgenv().Quest == "KillMonster" then
+    						game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["6"].QuestDone:FireServer()
+    					elseif  getgenv().Quest == "KillRker312" then
+    						game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["7"].QuestDone:FireServer()
+    					elseif  getgenv().Quest == "KillDioOH" then
+    						game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["8"].QuestDone:FireServer()
+    					elseif  getgenv().Quest == "KillKira" then
+    						game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["9"].QuestDone:FireServer()
+    					elseif getgenv().Quest == "KillAngelo" then
+    						game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["10"].QuestDone:FireServer()
+    					end
+    					if getgenv().Quest == "KillAlien" then
+    						game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["11"].QuestDone:FireServer()
+    					elseif getgenv().Quest == "KillJotarop4" then
+    						game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["12"].QuestDone:FireServer()
+    					elseif getgenv().Quest == "KillKakyoin" then
+    						game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["13"].QuestDone:FireServer()
+    					elseif getgenv().Quest == "KillJungleGi" then
+    						game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["14"].QuestDone:FireServer()
+    					elseif getgenv().Quest == "KillSewervampires" then
+    						game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]["32"].QuestDone:FireServer()
+    					
+    					end
+    				end
+    			end
+    			wait(0.3)
+    		end
+    	end
+    }
+    Tab:Slider{
+    	Name = "Distance",
+    	Default = 6,
+    	Min = 0,
+    	Max = 10,
+    	Callback = function(value)
+    		if value == 0 then
+    			getgenv().Distance = 0
+    		elseif value == 1 then
+    			getgenv().Distance = 1
+    		elseif value == 2 then
+    			getgenv().Distance = 2
+    		elseif value == 3 then
+    			getgenv().Distance = 3
+    		elseif value == 4 then
+    			getgenv().Distance = 4
+    		elseif value == 5 then
+    			getgenv().Distance = 5
+    		elseif value == 6 then
+    			getgenv().Distance = 6
+    		elseif value == 7 then
+    			getgenv().Distance = 7
+    		elseif value == 8 then
+    			getgenv().Distance = 8
+    		elseif value == 9 then
+    			getgenv().Distance = 9
+    		elseif value == 10 then
+    			getgenv().Distance =10
+    		end
+    	end
+    }
+    getgenv().Distance = 6
+    Tab:Toggle({
+        Name = "Mob Farm",
+        Default = false,
+        Callback = function(state)
+    		getgenv().MobActiveFarm = state
+    	--spawn(function()
+    		local RunService = game:GetService("RunService")
+            while getgenv().MobActiveFarm == true do
+                for i, v in pairs(game:GetService("Workspace").Living:GetChildren()) do
+                    if v.Name == getgenv().Mob then
+                        if v:FindFirstChild("Humanoid") then
+                            if v:FindFirstChild("Humanoid").Health > 0 then
+                                if game:GetService("Players").LocalPlayer.Character then
+                                    if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid") then
+            							game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,0,getgenv().Distance)
+    	    						end
+                				end
+                			end
+                		end
+                	end
+                end
+    			wait()
+            end
+    	--end)
+    end
+    })
+    
+    local timelabel = Tab:Label{
+    	Text = "Skills",
+    	Description =  "Use your stand ability automaticly"
+    }
+    Tab:Toggle{
+    	Name = "Auto M1",
+    	StartingState = false,
+    	Description = nil,
+    	Callback = function(state)
+    		getgenv().AutoM1 = state
+    
+    		while getgenv().AutoM1 do
+    			game.Players.LocalPlayer.Character.StandEvents.M1:FireServer()
+    			wait(0.3)
+    		end
+    	end
+    }
+    Tab:Toggle{
+    	Name = "Auto Skills",
+    	StartingState = false,
+    	Description = nil,
+    	Callback = function(state)
+    		getgenv().AutoSkill = state
+    
+    		while getgenv().AutoSkill do
+    			for i,v in pairs(game.Players.LocalPlayer.Character.StandEvents:GetChildren()) do
+					if game:GetService("Players").LocalPlayer.Character:FindFirstChild("StandEvents") then
+    				    if v:IsA("RemoteEvent") then
+    				    	if v.Name == "Summon" then
+    				    	elseif v.Name == "Quote" then
+    				    	elseif v.Name == "Pose" then
+    				    	elseif v.Name == "M1" then
+    				    	elseif v.Name == "Block" then
+    				    	elseif v.Name == "TogglePilot" then
+    				    	else
+    				    		v:FireServer()
+    				    	end
+    				    end
+					end
+     			end
+    			wait(0.3)
+    		end
+    	end
+    }
+    
+    
+    local Tab = GUI:Tab{
+    	Name = "Teleport",
+    	Icon = "rbxassetid://6035190846"
+    }
+    
+    Tab:Button{
+    	Name = "D4C Dimension",
+    	Description = nil,
+    	Callback = function()
+    		game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(11953, -3, -4497)}):Play()
+    	end
+    }
+    local MyDropdown = Tab:Dropdown{
+    	Name = "Quest NPC",
+    	StartingText = "Select...",
+    	Description = nil,
+    	Items = {  		-- {name, value} -- or just value, which is also automatically taken as name
+    		{"Giorono Giovanna[LVl. 1+]", 2},
+    		{"Koichi [Lvl. 5+]", 3},
+    		{"Scared Noob [Lvl. 10+]", 4},
+    		{"aLLmemester [Lvl. 15+]", 5},
+    		{"Joseph Joestar [Lvl. 25+]", 6},
+    		{"Okuyasu [Lvl. 30+]", 7},
+    		{"Josuke Higashikata [Lvl. 40+]", 8},
+    		{"Rohan Kishibe [Lvl. 50+]", 9},
+    		{"DIO [Lvl. 65+]", 10},
+    		{"Muhammad Avdol [Lvl. 75+]", 11},
+    		{"Giorno Giovanna [Lvl. 90+]", 12},
+    		{"Will Anthonio Zeppeli [Lvl. 130+]", 13},
+    		{"----- Other -----", 100},
+    		{"Homeless Man", 14},
+    	},
+    	Callback = function(item)
+    		if item == 2 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-650.153137, 72.5882339, -804.12677, 0.810598671, -2.34699082e-09, -0.585602105, -2.05066435e-08, 1, -3.23934088e-08, 0.585602105, 3.82667871e-08, 0.810598671)}):Play()
+    		elseif item == 3 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-181.591782, 70.7023926, -584.878723, -0.218528971, -2.58233435e-08, -0.975830436, -4.51966713e-08, 1, -1.6341529e-08, 0.975830436, 4.0533191e-08, -0.218528971)}):Play()
+    		elseif item == 4 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-702.585999, 67.6285324, -1012.26001, -0.739310563, 6.11670856e-08, -0.673364639, -2.31568045e-08, 1, 1.16262648e-07, 0.673364639, 1.01547172e-07, -0.739310563)}):Play()
+    		elseif item == 5 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-639.215515, 66.6291275, -458.789307, -0.998670697, -5.83155888e-08, 0.0515449643, -5.59007205e-08, 1, 4.82914082e-08, -0.0515449643, 4.53458142e-08, -0.998670697)}):Play()
+    		elseif item == 6 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-136.286438, 69.1796722, -777.803894, -0.995724201, -0.0202379469, -0.0901323333, -0.0240739752, 0.998841047, 0.0416781157, 0.089184396, 0.0436697528, -0.995057344)}):Play()
+    		elseif item == 7 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-475.501068, 67.1782303, -987.121155, -1, 0, 0, 0, 1, 0, 0, 0, -1)}):Play()
+    		elseif item == 8 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-492.863983, 67.1782379, -710.836853, 0, 0, 1, 0, 1, -0, -1, 0, 0)}):Play()
+    		elseif item == 9 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-303.60437, 67.0773239, -713.353333, 0, 0, 1, 0, 1, -0, -1, 0, 0)}):Play()
+    		elseif item == 10 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-515.180542, 67.1401825, -132.670288, 0, 0, 1, 0, 1, -0, -1, 0, 0)}):Play()
+    		elseif item == 11 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-242.013214, 67.0773315, -215.973175, 0, 0, 1, 0, 1, -0, -1, 0, 0)}):Play()
+    		elseif item == 12 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-491.130524, 67.1677094, -33.4819489, 0.939700544, 0, 0.341998369, 0, 1, 0, -0.341998369, 0, 0.939700544)}):Play()
+    		elseif item == 13 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-5181.75, -449.374115, -3817.55981, -0.642763734, 0, 0.766064942, 0, 1, 0, -0.766064942, 0, -0.642763734)}):Play()
+    		elseif item == 14 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(27857.8105, 65.4830093, 59.9948769, -0.25875926, 0, 0.965941846, 0, 1, 0, -0.965941846, 0, -0.25875926)}):Play()
+    		
+    		end
+    		return 
+    	end
+    }
+    local MyDropdown = Tab:Dropdown{
+    	Name = "Lair NPC",
+    	StartingText = "Select...",
+    	Description = nil,
+    	Items = {
+    		{"i_stabman [Lvl. 15+]", 1},
+    		{"i_stabman [Lvl. 40+]", 2},
+    		{"i_stabman [Lvl. 80+]", 3},
+    		{"i_stabman [Lvl. 90+]", 4},
+    		{"i_stabman [Lvl. 100+]", 5},
+    	},
+    	Callback = function(item)
+    		if item == 1 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-727.006897, 67.0773239, -939.000366, 0.422592998, -0, -0.906319618, 0, 1, -0, 0.906319618, 0, 0.422592998)}):Play()
+    		elseif item == 2 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-730.83905, 67.1782303, -382.166504, 0, 0, -1, 0, 1, 0, 1, 0, 0)}):Play()
+    		elseif item ==3 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-326.287964, 67.1231995, -131.777573, -0.0871315002, 0, -0.996196866, 0, 1, 0, 0.996196866, 0, -0.0871315002)}):Play()
+    		elseif item == 4 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-39.13451, 67.0773239, -482.917908, -0.258864403, 0, -0.965913713, 0, 1, 0, 0.965913713, 0, -0.258864403)}):Play()
+    		elseif item == 5 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-70.8397522, 67.1782303, -982.708618, 0.173624337, -0, -0.984811902, 0, 1, -0, 0.984811902, 0, 0.173624337)}):Play()
+    		
+    		end
+    		return
+    	end
+    }
+    
+    local MyDropdown = Tab:Dropdown{
+    	Name = "Shop NPC",
+    	StartingText = "Select...",
+    	Description = nil,
+    	Items = {
+    		{"Stand Storage", 1},
+    		{"d0ge_316sBrother [Lvl. 15+] [Shop]", 2},
+    		{"SWAT [Lvl. 55+] [Merchant]" , 3},
+    		{"d0ge_316sBrother [Lvl. 40+] [D4C Shop]", 4},
+    		{"MMLGG_316 [Lvl. 120+] [Technique Learner]", 5},
+    		{"Hamon Dealer [Technique Learner]", 6},
+    		{"Gyro Zeppeli [Lvl. 40+]", 10},
+    		{"Vehicle Man", 7},
+    		{"Umbrella Seller", 8},
+    		{"bozkered [Crafting]", 9}
+    	},
+    	Callback = function(item)
+    		if item == 1 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-368.567444, 23.6771221, -303.919067, 0.976668239, -2.81042016e-08, -0.214753658, 3.04374552e-08, 1, 7.55794005e-09, 0.214753658, -1.39181555e-08, 0.976668239)}):Play()
+    		elseif item == 2 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-566.044189, 66.6632996, -691.106934, 0.087131381, -0, -0.996196866, 0, 1, -0, 0.996196866, 0, 0.087131381)}):Play()
+    		elseif item == 3 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-227.568726, 67.1782379, -372.176697, 0.906334043, 0, 0.422561973, 0, 1, 0, -0.422561973, 0, 0.906334043)}):Play()
+    		elseif item == 4 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(11926.0732, -3.33700514, -4513.32227, -1, 0, 0, 0, 1, 0, 0, 0, -1)}):Play()
+    		elseif item == 5 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-426.638123, 67.1232071, -156.04895, 0.642836332, 0, 0.766003549, 0, 1, 0, -0.766003549, 0, 0.642836332)}):Play()
+    		elseif item == 6 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-809.361084, 66.6828384, -732.359802, 0.25875926, -0, -0.965941846, 0, 1, -0, 0.965941846, 0, 0.25875926)}):Play()
+    		elseif item == 7 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-192.795685, 78.5955658, -1076.68457, -0.0871315002, 0, -0.996196866, 0, 1, 0, 0.996196866, 0, -0.0871315002)}):Play()
+    		elseif item == 8 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-5244.75488, -449.427917, -3767.89282, -1, 0, 0, 0, 1, 0, 0, 0, -1)}):Play()
+    		elseif item == 9 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-388.604614, 67.1231995, -123.920166, -0.996191859, 0, -0.0871884301, 0, 1, 0, 0.0871884301, 0, -0.996191859)}):Play()
+    		elseif item == 10 then
+    			game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(54.641964, 67.0773392, -221.411377, -0.86605227, 0, -0.499954134, 0, 1, 0, 0.499954134, 0, -0.86605227)}):Play()
+    		end
+    		return
+    	end
+    }
+    
+    local Tab = GUI:Tab{
+    	Name = "Shop",
+    	Icon = "rbxassetid://6031265997"
+    }
+    
+    Tab:Button{
+    	Name = "Open Stand Storage",
+    	Description = nil,
+    	Callback = function()
+    		for i,v in pairs(game:GetService("Workspace")["hello exploiter why u see the Annoying Orange"]:GetChildren()) do
+    			if i == 3 then
+    				v.Done:FireServer()
+    			end
+    		end
+    	end
+    }
+    Tab:Button{
+    	Name = "Buy Rokakaka [2,750c]",
+    	Description = nil,
+    	Callback = function()
+    		game:GetService("ReplicatedStorage").Events.BuyItem:FireServer("Merchant1", "Option2")
+    	end
+    }
+    Tab:Button{
+    	Name = "Buy Arrow [4,000c]",
+    	Description = nil,
+    	Callback = function()
+    		game:GetService("ReplicatedStorage").Events.BuyItem:FireServer("Merchant1", "Option4")
+    	end
+    }
+    local Tab = GUI:Tab{
+    	Name = "Misc",
+    	Icon = "rbxassetid://6031154868"
+    }
+    Tab:Toggle{
+    	Name = "show item's spawn location",
+    	StartingState = _G.Settings.ShowSpawnLocation,
+    	Description = nil,
+    	Callback = function(state)
+    		_G.Settings.ShowSpawnLocation = state -- 1
+    
+    		saveSettings()
+    
+    		spawn(function()
+    		    if state == true then
+    		    	se = 0
+    		    elseif state == false then
+    		    	se = 1
+    		    end
+    		    for i,v in pairs(game:GetService("Workspace").ItemSpawns:GetChildren()) do
+    		    	v.Transparency = se
+    		    end
+    	    end)
+    	end
+    }
+    local timelabel = Tab:Label{
+    	Text = "Server Time",
+    	Description =  "If you see this message Report it to the owner!"
+    }
+    while wait() do
+    	function Format(Int)
+    		return string.format("%02i", Int)
+    	end
+    	
+    	function convert(seconds)
+    		local Minutes = math.floor(seconds/60)
+    		local Hours = math.floor(Minutes/60)
+    		Minutes = Minutes - Hours*60
+    		local Days = math.floor(Hours/24)
+    		Hours = Hours - Days*24
+    	
+    		return Format(Days).." Days, "..Format(Hours).." Hours, "..Format(Minutes).." Minutes"
+    	end
+    	
+    	timelabel:SetDescription(convert(game:GetService("Workspace").Age.Value))
+    end

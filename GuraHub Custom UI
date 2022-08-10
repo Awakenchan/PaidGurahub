@@ -3293,7 +3293,7 @@ function UILibrary.Window:setAnimSpeed(val)
     TI = TweenInfo.new(.4 / (val / 100), Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)
 end
 
-function UILibrary.Window:Notification(sett)
+function UILibrary.GuraSend:GuraNotification(sett)
     local Notif = objectGenerator.new("Notification").Main
 
     Notif.Size = UDim2.new(1, 0, 1, -5)
@@ -3302,7 +3302,7 @@ function UILibrary.Window:Notification(sett)
     local ui = self.MainUI.Notifications
 
     Notif.Content.Text.Title.Text = sett.Title
-    Notif.Content.Text.Desc.Text = sett.Desc
+    Notif.Content.Text.Desc.Text = sett.Description
 
     local layout = getLayoutOrder(ui)
 

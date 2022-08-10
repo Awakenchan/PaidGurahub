@@ -1,7 +1,7 @@
 local UILibrary = {}
 --// Modules
 
-local function getObjGen(closebind)
+local function getObjGen()
     local objGen = {}
 
     local function getObjects()

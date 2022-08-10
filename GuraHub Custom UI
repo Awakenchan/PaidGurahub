@@ -731,6 +731,7 @@ local function getObjGen()
             Gui.Frame_2.LayoutOrder = -1
             Gui.Frame_2.Size = UDim2.new(1, 0, 1, 0)
             Gui.Frame_2.ZIndex = 110
+            Gui.Frame_2.Draggable = true
 
             Gui.UICorner_12.CornerRadius = UDim.new(1, 0)
             Gui.UICorner_12.Parent = Gui.Frame_2

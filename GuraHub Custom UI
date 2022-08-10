@@ -3294,7 +3294,7 @@ function UILibrary.Window:setAnimSpeed(val)
 end
 
 function UILibrary.GuraSend:GuraNotification(sett)
-    local Notif = objectGenerator.new("Notification").Main
+    local Notif = objectGenerator.new("GuraNotification").Main
 
     Notif.Size = UDim2.new(1, 0, 1, -5)
     Notif:FindFirstChildOfClass("UIAspectRatioConstraint"):Destroy()
@@ -3308,7 +3308,7 @@ function UILibrary.GuraSend:GuraNotification(sett)
 
     Notif.LayoutOrder = layout
 
-    Notif.Notification.BackgroundTransparency = 0
+    Notif.GuraNotification.BackgroundTransparency = 0
     Notif.Parent.Size = UDim2.fromScale(1, 0)
 
     Notif.Parent.Parent = ui

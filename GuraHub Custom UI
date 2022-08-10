@@ -3309,7 +3309,7 @@ function UILibrary.Window:Notification(sett)
     Notif.LayoutOrder = layout
 
     Notif.Notification.BackgroundTransparency = 0
-    Notif.Parent.Size = UDim2.fromScale(2, 0)
+    Notif.Parent.Size = UDim2.fromScale(3, 0)
 
     Notif.Parent.Parent = ui
 
@@ -3356,7 +3356,7 @@ function UILibrary.Window:Notification(sett)
             TweenInfo.new(.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
             {
                 Position = UDim2.fromScale(2, 0)
-                --Size = UDim2.fromScale(0,1)
+                --Size = UDim2.fromScale(0,5)
             }
         ):Play()
 

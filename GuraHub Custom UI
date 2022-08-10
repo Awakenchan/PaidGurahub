@@ -59,7 +59,8 @@ local function MakeDraggable(topbarobject, object)
     )
 end
 
-local function getObjGen()
+local function getObjGen(closebind)
+    CloseBind = closebind or Enum.KeyCode.RightControl
     local objGen = {}
 
     local function getObjects()

@@ -3302,7 +3302,7 @@ function UILibrary.Window:Notification(sett)
     local ui = self.MainUI.Notifications
 
     Notif.Content.Text.Title.Text = sett.Title
-    Notif.Content.Text.Desc.Text = sett.Des
+    Notif.Content.Text.Desc.Text = sett.Desc
 
     local layout = getLayoutOrder(ui)
 

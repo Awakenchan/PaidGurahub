@@ -3293,8 +3293,8 @@ function UILibrary.Window:setAnimSpeed(val)
     TI = TweenInfo.new(.4 / (val / 100), Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)
 end
 
-function UILibrary.Window:GuraNotification(sett)
-    local Notif = objectGenerator.new("GuraNotification").Main
+function UILibrary.Window:Notification(sett)
+    local Notif = objectGenerator.new("Notification").Main
 
     Notif.Size = UDim2.new(1, 0, 1, -5)
     Notif:FindFirstChildOfClass("UIAspectRatioConstraint"):Destroy()

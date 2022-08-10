@@ -3309,7 +3309,7 @@ function UILibrary.Window:Notification(sett)
     Notif.LayoutOrder = layout
 
     Notif.Notification.BackgroundTransparency = 0
-    Notif.Parent.Size = UDim2.fromScale(1, 0)
+    Notif.Parent.Size = UDim2.fromScale(2, 0)
 
     Notif.Parent.Parent = ui
 

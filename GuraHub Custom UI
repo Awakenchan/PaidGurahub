@@ -3267,7 +3267,7 @@ function UILibrary.new(gameName, userId, rank)
     local Drag = Draggable.Drag(window.MainUI, Frame)
 
     --// Customize the GUI
-    window.Watermark.Text = ("GuraHub | %s | %s"):format(userId, gameName)
+    window.Watermark.Text = ("GuraHub-Paid | %s | %s"):format(userId, gameName)
     local userinfo = window.MainUI.Sidebar.ContentHolder.UserInfo.Content
     userinfo.Rank.Text = rank
     userinfo.Title.Text = userId
@@ -3302,13 +3302,13 @@ function UILibrary.Window:Notification(sett)
     local ui = self.MainUI.Notifications
 
     Notif.Content.Text.Title.Text = sett.Title
-    Notif.Content.Text.Desc.Text = sett.Description
+    Notif.Content.Text.Desc.Text = sett.Des
 
     local layout = getLayoutOrder(ui)
 
     Notif.LayoutOrder = layout
 
-    Notif.GuraNotification.BackgroundTransparency = 0
+    Notif.Notification.BackgroundTransparency = 0
     Notif.Parent.Size = UDim2.fromScale(1, 0)
 
     Notif.Parent.Parent = ui

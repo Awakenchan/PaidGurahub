@@ -8,4 +8,4 @@ elseif game.PlaceId == 7167319176 then -- CR DUPE
     loadstring(game:HttpGet("https://raw.githubusercontent.com/momenthubv3/PaidGurahub/main/Dupe%20CR"))()
 end
 
-WHY YOU LOOKING AT LOADER? LMAO
+---WHY YOU LOOKING AT LOADER? LMAO---

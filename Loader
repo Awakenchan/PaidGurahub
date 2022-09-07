@@ -6,6 +6,8 @@ elseif game.PlaceId == 8540168650 then -- Stand Upright: Rebooted
     loadstring(game:HttpGet("https://raw.githubusercontent.com/momenthubv3/PaidGurahub/main/Stand%20Upright%3A%20Rebooted"))()   
 elseif game.PlaceId == 7167319176 then -- CR DUPE
     loadstring(game:HttpGet("https://raw.githubusercontent.com/momenthubv3/PaidGurahub/main/Dupe%20CR"))()
+elseif game.placeId == 10366978580 then -- xeno
+     loadstring(game:HttpGet("https://raw.githubusercontent.com/momenthubv3/PaidGurahub/main/Xeno%20II"))()
 else 
  loadstring(game:HttpGet("https://raw.githubusercontent.com/momenthubv3/PaidGurahub/main/Universal"))()
 end

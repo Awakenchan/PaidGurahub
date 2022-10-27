@@ -215,9 +215,8 @@ Player:CreateToggle({
             es = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Handler")
             if es then
                 es.Values.Hunger.Value = 100
-                wait(1)
+                wait(0.8)
             end
-            wait(1)
         end
 	end,
 })
@@ -231,9 +230,8 @@ Player:CreateToggle({
         es = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Handler")
         if es then
             es.Values.Thirst.Value = 100
-            wait(1)
+            wait(0.8)
         end
-        wait(1)
      end
     end,
 })
@@ -248,7 +246,7 @@ Player:CreateToggle({
             if sea then
                 game:GetService("Players").LocalPlayer.PlayerGui.JumpCooldown.Disabled = true
             end
-            wait(2)
+            wait(0.8)
         end
         if value == false then
             game:GetService("Players").LocalPlayer.PlayerGui.JumpCooldown.Disabled = false
@@ -261,46 +259,19 @@ Player:CreateToggle({
 	Name = "Inf Stamina",
 	CurrentValue = false,
 	Callback = function(value)
-        sus = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Handler")
+		getgenv().InfStamina = value
+     while getgenv().InfStamina do
+		sus = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Handler")
         if sus then
             sus.Values.MaxStamina.CurrentStamina.Value = 100
-            wait(1)
+			sus.Values.MaxStamina.Value = 100
+            wait(0.8)
         end
-        wait()
+	 end
     end,
 })
 
 Player:CreateLabel("Swey Suii Speed")
-
-Player:CreateToggle({
-	Name = "ActiveSpeed",
-	CurrentValue = false,
-	Callback = function(value)
-        getgenv().ActiveSpeed = value
-        while getgenv().ActiveSpeed do
-            se = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid")
-            if se then
-                se.WalkSpeed = getgenv().SpeedValue
-            end
-            wait(0.2)
-        end
-    end,
-})
-
-Player:CreateToggle({
-	Name = "ActiveJump",
-	CurrentValue = false,
-	Callback = function(value)
-        getgenv().ActiveJump = value
-        while getgenv().ActiveJump do
-            se = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid")
-            if se then
-                se.JumpPower = getgenv().JumpPowerValue
-            end
-            wait(0.2)
-        end
-    end,
-})
 
 Player:CreateSlider({
 	Name = "WalkSpeed",
@@ -309,7 +280,7 @@ Player:CreateSlider({
 	Suffix = "SpeedValue",
 	CurrentValue = 10,
 	Callback = function(value)
-        getgenv().SpeedValue = value
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
     end,
 })
 
@@ -320,7 +291,7 @@ Player:CreateSlider({
 	Suffix = "JumpValue",
 	CurrentValue = 10,
 	Callback = function(value)
-        getgenv().JumpPowerValue = value
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = value
     end,
 })
 
@@ -820,3 +791,24 @@ combo:CreateToggle({
 	end,
 })
 
+local Dupe = Window:CreateTab("Dupe Money")
+
+local Section = Dupe:CreateSection("Dupe Money")
+
+Dupe:CreateToggle({
+	Name = "Dupe",
+	CurrentValue = false,
+	Callback = function(value)
+		getgenv().dupe = value
+		while getgenv().dupe do 
+			if getgenv().dupe == false then
+				wait()
+			elseif getgenv().dupe == true then
+			end
+		end
+	end,
+})
+
+Dupe:CreateParagraph({Title = "Dupe Steps", Content = "Step 1:".."You must have cash and able to transfer to your alt or friend."})
+Dupe:CreateParagraph({Title = "-", Content = "Step 2:".."After you transfer to your alt or anyother account Run the dupe"})
+Dupe:CreateParagraph({Title = "Lastly", Content = "Step 3:".."Dont close Roblox window stay ingame then join a random server via roblox server browser"})

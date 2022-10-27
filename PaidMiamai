@@ -1,4 +1,6 @@
-goofyversion = "Version: Tester"
+goofyversion = "Version: Alpha"
+getgenv().SecureMode = true
+
 
 local ws = game:GetService('Workspace')
 
@@ -812,3 +814,122 @@ Dupe:CreateToggle({
 Dupe:CreateParagraph({Title = "Dupe Steps", Content = "Step 1:".."You must have cash and able to transfer to your alt or friend."})
 Dupe:CreateParagraph({Title = "-", Content = "Step 2:".."After you transfer to your alt or anyother account Run the dupe"})
 Dupe:CreateParagraph({Title = "Lastly", Content = "Step 3:".."Dont close Roblox window stay ingame then join a random server via roblox server browser"})
+
+local Misc = Window:CreateTab("Misc")
+
+local Section = Misc:CreateSection("Misc")
+
+Misc:CreateToggle({
+	Name = "Auto Pick Cash",
+	CurrentValue = false,
+	Callback = function(value)
+		getgenv().AutoPickCask = value
+
+		while getgenv().AutoPickCask do
+			wait(1)
+			LPH_JIT_ULTRA(function() 
+			for _, pskov in pairs(game.Workspace:GetChildren()) do
+				if not getgenv().AutoPickCask then break 
+				end;
+				if pskov:IsA("Tool") and pskov:FindFirstChild("Handle") then
+					if lp.Character and lp.Character:FindFirstChild("HumanoidRootPart")  then
+						firetouchinterest(game.Players.LocalPlayer.Character.Head, pskov.Handle, 0)
+					end
+				end
+			end
+			end)();
+			wait(2)
+		end
+	end,
+})
+
+Misc:CreateInput({
+	Name = "Test Webhook",
+	PlaceholderText = "Enter Webhook",
+	RemoveTextAfterFocusLost = false,
+	Callback = function(Text)
+		local webhookcheck = identifyexecutor()
+	 
+	 local url = (Text)
+	 local data = {
+		["content"] = "@everyone",
+		["embeds"] = {
+			{
+				["title"] = "Test Webhook GuraHub Mod Detection System",
+				["description"] = "TestWebhook"..webhookcheck,
+				["type"] = "rich",
+				["color"] = tonumber(0x7269da),
+			}
+		}
+	 }
+	 local newdata = game:GetService("HttpService"):JSONEncode(data)
+ 
+	 local headers = {
+		["content-type"] = "application/json"
+	 }
+	 request = http_request or request or HttpPost or syn.request
+	 local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+	 request(abcdef)
+	end,
+})
+
+
+Misc:CreateInput({
+	Name = "Enter Webhook",
+	PlaceholderText = "Enter Webhook",
+	RemoveTextAfterFocusLost = false,
+	Callback = function(Text)
+		url2 = (Text) 
+	end,
+})
+
+Misc:CreateButton({
+	Name = "Mod Detection",
+	CurrentValue = false,
+	Callback = function(value)
+		if url2 == nil then
+			Rayfield:Notify("Warning","Enter Webhook First")
+			task.stop()
+		end
+		Rayfield:Notify("Gura Hub","Runing Mod Detection")
+		local function webhook(staffname)
+			local data = {
+				 ["content"] = "@everyone",
+				 ["embeds"] = {{
+					 ["title"] = "Staff Detected!",
+					 ["description"] = "A staff member joined the game you were in.",
+					 ["type"] = "rich",
+					 ["color"] = tonumber(0xffffff),
+					 ["fields"] = {
+						 {
+							 ["name"] = "Staff Name",
+							 ["value"] = staffname,
+							 ["inline"] = true
+						 },
+					 }
+				 }}
+			 }
+		 local response = (syn and syn.request or http_request or http.request) {
+		 url = url2,
+		 Method = "POST",
+		 Headers = {
+		 ["Content-Type"] = "application/json"
+		 },
+		 Body = game:GetService("HttpService"):JSONEncode(data)
+		 }
+		 end
+		 local function staffcheckloop()
+		 for i,v in pairs(game.Players:GetPlayers()) do
+			 if v:GetRoleInGroup(4788489) == "Owner" or v:GetRoleInGroup(4788489) == "Modeler" or v:GetRoleInGroup(4788489) == "Co-owner" or v:GetRoleInGroup(4788489) == "Admin" then
+				 webhook(v.Name)
+			 end
+		 end
+		 end
+		 staffcheckloop()
+		 game.Players.PlayerAdded:Connect(function(player)
+				 if player:GetRoleInGroup(4788489) == "Owner" or player:GetRoleInGroup(4788489) == "Modeler" or player:GetRoleInGroup(4788489) == "Co-owner" or player:GetRoleInGroup(4788489) == "Admin" then
+				 webhook(player)
+			 end
+		 end)     
+	end,
+})

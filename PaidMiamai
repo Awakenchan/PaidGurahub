@@ -73,7 +73,7 @@ local Window = Rayfield:CreateWindow({
         Title = "GuraHub",
         Subtitle = "Key System",
         Note = "Welcome to GuraHub Reborn",
-        Key = "GuraHub1213412412" and "Awaken" and "lobox920"
+        Key = "GuraHub1213412412" and "Owner" 
     }
 })
 
@@ -818,6 +818,8 @@ Troll:CreateDropdown({
                         wait(0.1)
                         Rayfield:Notify("Gura Hub","Waiting for kick", 3)
                         wait(1)
+                        wait(2)
+                        Rayfield:Notify("Gura Hub","Enjoy the view he getting kick", 3)
                         wait(2)
                         game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-362, 7, -520)}):Play()
                         wait(0.3)

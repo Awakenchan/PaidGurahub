@@ -1,6 +1,5 @@
-goofyversion = "Version: Alpha"
+goofyversion = "Version: Semi ReWrote"
 getgenv().SecureMode = true
-
 
 local ws = game:GetService('Workspace')
 
@@ -73,43 +72,10 @@ local Window = Rayfield:CreateWindow({
     KeySettings = {
         Title = "GuraHub",
         Subtitle = "Key System",
-        Note = "Hi sorry for the key System",
-        Key = "Tester"
+        Note = "Welcome to GuraHub Reborn",
+        Key = "GuraHub1213412412" and "Awaken"
     }
 })
-
-local BeforeUsing = Window:CreateTab("Before Using")
-
-local Section = BeforeUsing:CreateSection('BeforeUsing')
-
-BeforeUsing:CreateLabel(goofyversion)
-
-BeforeUsing:CreateLabel('Welcome Paid User')
-
-BeforeUsing:CreateButton({
-	Name = "GuraHub SkidStops",
-	Callback = function()
-		Rayfield:Notify("Awaken/lobox :", "We made us open source be aware no keystem")
-	end,
-})
-
-BeforeUsing:CreateButton({
-    Name = 'Credits.txt',
-	Callback = function() 
-        Rayfield:Notify("Awaken :", "Owners Awaken/lobox, Contributers + dev sparta!#5582, ●Xenjio○#9080, P4TL#4673")
-     setclipboard("discord.gg/gurahub")
-    end,
-})
-
-BeforeUsing:CreateButton({
-    Name = "Must ReadMe.txt",
-	Callback = function() 
-        Rayfield:Notify("Awaken :", "DO NOT ENTER MIAMI DISCORD WITH MAIN ACCOUNT AUTO FARM IN EMPTY SERVERS!")
-    end,
-})
-
-BeforeUsing:CreateParagraph({Title = "Warning", Content = "We are not responsible for your account being banned so please dont come to our dms also by using our script you agree to terms not to skid since its a open source now"})
-BeforeUsing:CreateParagraph({Title = "Terms of Service", Content = "DO NOT SHARE THE SCRIPT, WE WILL LOG YOUR HWID FOR SECURITY PURPOSE, WE WILL LOG YOUR EXECUTION TIME AND WHEN USED, SCRIPT COULD BE DISCONTINUED FOR ANY REASON, IF YOU DISRESPECT OWNERS/ADMINS YOU WILL GET BLACKLISTED, NO REFUNDs and MUST NOT LEAK PAID SOURCE."})
 
 local Player = Window:CreateTab("Player Locals")
 
@@ -497,11 +463,6 @@ Auto:CreateToggle({
             end
             wait(1)
         end
-        if getgenv().Autofarm == true then
-            oldcfforautofarm = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position
-        elseif getgenv().Autofarm == false then
-            game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(oldcfforautofarm)}):Play()
-        end
     end,
 })
 
@@ -514,19 +475,15 @@ spawn(function()
     end
 end)
 
-Auto:CreateToggle({
-	Name = "AutoRejoin 20sec",
-	CurrentValue = false,
-	Callback = function(value)
-        wait(20) do
-            local tpservice= game:GetService("TeleportService")
-            local plr = game.Players.LocalPlayer
-        
-            tpservice:Teleport(game.PlaceId, plr)
-        end
-    end,
+Auto:CreateButton({
+	Name = "Rejoin ",
+	Callback = function()
+        local tpservice= game:GetService("TeleportService")
+        local plr = game.Players.LocalPlayer
+    
+        tpservice:Teleport(game.PlaceId, plr)
+	end,
 })
-
 
 local combo = Window:CreateTab("Combat")
 
@@ -546,13 +503,11 @@ combo:CreateToggle({
 	CurrentValue = false,
 	Callback = function(value)
         getgenv().enabled = value
-
         getgenv().outlinecolor =  Color3.new(255,255,255)
         local holder = game.CoreGui:FindFirstChild("ESPHolder") or Instance.new("Folder")
         if enabled == false then
             holder:Destroy()
         end
-        
         if holder.Name == "Folder" then
             holder.Name = "ESPHolder"
             holder.Parent = game.CoreGui
@@ -562,10 +517,7 @@ combo:CreateToggle({
             holder:FindFirstChild(game.Players.LocalPlayer.Name):Destroy()
         end
         
-        if getgenv().enabled == true then 
-            getgenv().enabled = false
-            getgenv().enabled = true
-        end
+
         while getgenv().enabled do
             task.wait()
             for _,v in pairs(game.Players:GetChildren()) do
@@ -634,13 +586,13 @@ combo:CreateButton({
        
         _G.AimbotEnabled = true
         _G.TeamCheck = value 
-        _G.AimPart = aimpart
+        _G.AimPart = aimpart and "Head"
         _G.Sensitivity = 0 
        
         _G.CircleSides = 64
         _G.CircleColor = Color3.fromRGB(255, 255, 255) 
         _G.CircleTransparency = 1 
-        _G.CircleRadius = 40 or value 
+        _G.CircleRadius = 20 or value 
         _G.CircleFilled = false 
         _G.CircleVisible = true 
         _G.CircleThickness = 1 
@@ -766,30 +718,27 @@ combo:CreateToggle({
 combo:CreateToggle({
 	Name = "BigHead",
 	CurrentValue = false,
-	Callback = function(t)
-        getgenv().BigHead = t
-
-        while getgenv().BigHead do
+	Callback = function(value)
+        if value == true then
             for i,v in pairs(game:GetService("Players"):GetChildren()) do
-                if v.Name == game:GetService("Players").LocalPlayer.Name then
-                else
-                if v.Character:FindFirstChild("Head") then
-                        v.Character.Head.Size = Vector3.new(5,5,5)
-                    end 
-                end
+               if v.Name == game:GetService("Players").LocalPlayer.Name then
+               else
+               if v.Character:FindFirstChild("Head") then
+                       v.Character.Head.Size = Vector3.new(5,5,5)
+                   end 
+               end
             end
-            wait()
-        end
-        if t == false then
-            for i,v in pairs(game:GetService("Players"):GetChildren()) do
-                if v.Name == game:GetService("Players").LocalPlayer.Name then
-                else
-                if v.Character:FindFirstChild("Head") then
-                        v.Character.Head.Size = Vector3.new(1,1,1)
-                    end 
-                end
-            end
-        end
+           wait()
+        elseif value == false then
+           for i,v in pairs(game:GetService("Players"):GetChildren()) do
+               if v.Name == game:GetService("Players").LocalPlayer.Name then
+               else
+               if v.Character:FindFirstChild("Head") then
+                       v.Character.Head.Size = Vector3.new(1,1,1)
+                   end 
+               end
+           end
+       end
 	end,
 })
 
@@ -815,6 +764,73 @@ Dupe:CreateParagraph({Title = "Dupe Steps", Content = "Step 1:".."You must have 
 Dupe:CreateParagraph({Title = "-", Content = "Step 2:".."After you transfer to your alt or anyother account Run the dupe"})
 Dupe:CreateParagraph({Title = "Lastly", Content = "Step 3:".."Dont close Roblox window stay ingame then join a random server via roblox server browser"})
 
+local Troll = Window:CreateTab("Trolling")
+
+local Section = Troll:CreateSection("Troll Deez Nuts")
+
+Troll:CreateInput({
+	Name = "Stats Checker |",
+	PlaceholderText = "Enter Player Username",
+	RemoveTextAfterFocusLost = false,
+	Callback = function(t)
+        if game:GetService("Players"):FindFirstChild(t) then
+            rconsoleprint("\n -----------------Player Name-----------------")
+            rconsoleprint("\n Player Name:"..game:GetService("Players")[t].Name)
+            rconsoleprint("\n -----------------CurrentCar-----------------")
+            rconsoleprint("\n CurrentCar:"..game:GetService("Players")[t].CurrentCar.value)
+            rconsoleprint("\n -----------------Player Cash-----------------")
+            rconsoleprint("\n CurrentCash:"..game:GetService("Players")[t].Settings.Character.Settings.Cash.value)
+            rconsoleprint("\n -----------------Player backpack-----------------")
+            for i,v in pairs(game.Players[t].Backpack:GetChildren()) do
+                if v:IsA("Tool") then
+                    rconsoleprint('\n'..v.Name)
+                end
+            end
+        else
+         Rayfield:Notify("Gura Hub :", "Unable to find the player")
+        end
+	end,
+})
+
+Troll:CreateDropdown({
+	Name = "Kick Player",
+	Options = PlayerList,
+	CurrentOption = "Select Player",
+	Flag = "None",
+	Callback = function(Option)
+        victim = Option
+        if game:GetService("Workspace").Cars:FindFirstChild(game.Players.LocalPlayer.Name.."'s Vehicle") then
+            if game:GetService("Workspace").Players:FindFirstChild(victim) then
+                if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+                    if game.Players.LocalPlayer.Character.Humanoid.SeatPart == nil then
+                        Library:CreateNotification("Gura Hub","You must be on your car!", 3)
+                    else
+                        myseatedpart = game.Players.LocalPlayer.Character.Humanoid.SeatPart
+                        victimCF = game:GetService("Workspace").Players[victim].HumanoidRootPart.Position
+                        --if myseatedpart.Parent:GetAttribute("Price") then
+                            local MyCar = game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent
+                            MyCar:SetPrimaryPartCFrame(CFrame.new(victimCF)*CFrame.new(0,0,-2))
+                        --end
+                        wait(0.2)
+                        MyCar:SetPrimaryPartCFrame(CFrame.new(224, -5, -62))
+                        wait(1)
+                        game.Players.LocalPlayer.Character.Humanoid.Sit = false
+                        wait(0.1)
+                        game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-362, 7, -520)}):Play()
+                        wait(0.3)
+                        fireproximityprompt(game:GetService("Workspace").MapStuff.LowEndDealership.CSpawn.ProximityPrompt)
+                        Library:CreateNotification("Gura Hub","If the player isnt kicked then its a script user!", 3)
+                    end
+                end
+            else
+               Rayfield:Notify("Gura Hub","No victim Founded!")
+            end
+        else
+            Rayfield:Notify("Gura Hub","No Car Detected!")
+        end
+	end,
+})
+
 local Misc = Window:CreateTab("Misc")
 
 local Section = Misc:CreateSection("Misc")
@@ -827,17 +843,15 @@ Misc:CreateToggle({
 
 		while getgenv().AutoPickCask do
 			wait(1)
-			LPH_JIT_ULTRA(function() 
 			for _, pskov in pairs(game.Workspace:GetChildren()) do
 				if not getgenv().AutoPickCask then break 
 				end;
 				if pskov:IsA("Tool") and pskov:FindFirstChild("Handle") then
-					if lp.Character and lp.Character:FindFirstChild("HumanoidRootPart")  then
+					if mychar.Character and mychar.Character:FindFirstChild("HumanoidRootPart")  then
 						firetouchinterest(game.Players.LocalPlayer.Character.Head, pskov.Handle, 0)
 					end
 				end
 			end
-			end)();
 			wait(2)
 		end
 	end,
@@ -892,6 +906,28 @@ Misc:CreateButton({
 			task.stop()
 		end
 		Rayfield:Notify("Gura Hub","Runing Mod Detection")
+        local webhookcheck = identifyexecutor()
+	 
+        local url = url2 
+        local data = {
+           ["content"] = "@everyone",
+           ["embeds"] = {
+               {
+                   ["title"] = "GuraHub:Mod Detection System Active",
+                   ["description"] = "Active | Using Executer: "..webhookcheck,
+                   ["type"] = "rich",
+                   ["color"] = tonumber(0x7269da),
+               }
+           }
+        }
+        local newdata = game:GetService("HttpService"):JSONEncode(data)
+    
+        local headers = {
+           ["content-type"] = "application/json"
+        }
+        request = http_request or request or HttpPost or syn.request
+        local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+        request(abcdef)
 		local function webhook(staffname)
 			local data = {
 				 ["content"] = "@everyone",
@@ -931,5 +967,141 @@ Misc:CreateButton({
 				 webhook(player)
 			 end
 		 end)     
+	end,
+})
+
+Misc:CreateToggle({
+	Name = "Open Chat",
+	CurrentValue = false,
+	Callback = function(value)
+        V = value
+        if V == true then
+            local ChatFrame = game.Players.LocalPlayer.PlayerGui.Chat.Frame
+            ChatFrame.ChatChannelParentFrame.Visible = true
+            ChatFrame.ChatBarParentFrame.Position = ChatFrame.ChatChannelParentFrame.Position + UDim2.new(UDim.new(), ChatFrame.ChatChannelParentFrame.Size.Y)
+        elseif V == false then
+            local ChatFrame = game.Players.LocalPlayer.PlayerGui.Chat.Frame
+            ChatFrame.ChatChannelParentFrame.Visible = false
+            ChatFrame.ChatBarParentFrame.Position = ChatFrame.ChatChannelParentFrame.Position + UDim2.new(0, 0, 0, 0)
+        end
+	end,
+})
+
+Misc:CreateButton({
+	Name = "Anti Lag",
+	Callback = function()
+		local a = ws.Terrain
+    a.WaterWaveSize = 0
+    a.WaterWaveSpeed = 0
+    a.WaterReflectance = 0
+    a.WaterTransparency = 0
+    game.Lighting.GlobalShadows = false
+    task.spawn(function()
+        LPH_JIT_ULTRA(function() 
+            for i,v in pairs(ws:GetDescendants()) do
+                if v:IsA("Part") then
+                    v.Material = "Plastic"
+                end
+            end
+        end)()
+    end)
+	end,
+})
+
+Misc:CreateToggle({
+	Name = "Auto Day",
+	CurrentValue = false,
+	Callback = function(value)
+        getgenv().Autoday = value
+        if value then
+            task.spawn(function()
+                while getgenv().Autoday do
+                    game.Lighting.ClockTime.value = 12
+                wait() 
+                end
+            end)
+        end
+	end,
+})
+
+Misc:CreateToggle({
+	Name = "Anti Hurt Blur",
+	CurrentValue = false,
+	Callback = function(value)
+        getgenv().antigunblur = value
+
+        while getgenv().antigunblur do
+            lightgunblur = game:GetService("Lighting"):FindFirstChild("GunBlur")
+            if lightgunblur then
+                game:GetService("Lighting").GunBlur.Enabled = false
+            end
+        wait() 
+        end
+	end,
+})
+
+Misc:CreateToggle({
+	Name = "Anti UC",
+	CurrentValue = false,
+	Callback = function(value)
+        getgenv().AntiUC= value
+
+        while getgenv().AntiUC do
+            UC_V = game:GetService("Lighting"):FindFirstChild("UC")
+            if UC_V then
+                game:GetService("Lighting").UC.Enabled = false
+            end
+        wait() 
+        end
+	end,
+})
+
+Misc:CreateToggle({
+	Name = "Anti Gun Blur",
+	CurrentValue = false,
+	Callback = function(value)
+        getgenv().antiPermHurtBlur = value
+
+        while getgenv().antiPermHurtBlur do
+            lightPermHurtBlur = game:GetService("Lighting"):FindFirstChild("PermHurtBlur")
+            if lightPermHurtBlur then
+                game:GetService("Lighting").PermHurtBlur.Enabled = false
+            end
+        wait() 
+        end
+	end,
+})
+
+Misc:CreateButton({
+	Name = "Destroy UI",
+	Callback = function()
+		Rayfield:Destroy()
+	end,
+})
+
+Misc:CreateButton({
+	Name = "Exit UI",
+	Callback = function()
+        Rayfield:Notify('Exit Gui', 'Closing in 2 Sec')
+        wait(1)
+        game:GetService("CoreGui")["Key"]:Destroy()
+        wait(1)
+        -- 
+        getgenv().NoJumpCD = false
+        getgenv().InfStamina = false
+        getgenv().ActiveJump = false
+        getgenv().ActiveJump = false
+    
+        --
+        getgenv().SafeAutofarm = false
+        --
+        getgenv().Autofarm = false
+        getgenv().WALKINGAUTOFARM = false
+        getgenv().AutoPizzaJob = false
+        --
+        getgenv().Autoday = false
+        getgenv().antigunblur = false
+        getgenv().antiPermHurtBlur = false
+        getgenv().AntiUC = false
 	end,
 })

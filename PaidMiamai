@@ -816,10 +816,13 @@ Troll:CreateDropdown({
                         wait(1)
                         game.Players.LocalPlayer.Character.Humanoid.Sit = false
                         wait(0.1)
+                        Rayfield:Notify("Gura Hub","Waiting for kick", 3)
+                        wait(1)
+                        wait(2)
                         game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(-362, 7, -520)}):Play()
                         wait(0.3)
                         fireproximityprompt(game:GetService("Workspace").MapStuff.LowEndDealership.CSpawn.ProximityPrompt)
-                        Library:CreateNotification("Gura Hub","If the player isnt kicked then its a script user!", 3)
+                        Rayfield:Notify("Gura Hub","If the player isnt kicked then its a script user!", 3)
                     end
                 end
             else
@@ -827,6 +830,7 @@ Troll:CreateDropdown({
             end
         else
             Rayfield:Notify("Gura Hub","No Car Detected!")
+            task.stop()
         end
 	end,
 })

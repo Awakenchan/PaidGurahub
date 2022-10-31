@@ -73,7 +73,7 @@ local Window = Rayfield:CreateWindow({
         Title = "GuraHub",
         Subtitle = "Key System",
         Note = "Welcome to GuraHub Reborn",
-        Key = "GuraHub1213412412" and "Awaken"
+        Key = "GuraHub1213412412" and "Awaken" and "lobox920"
     }
 })
 

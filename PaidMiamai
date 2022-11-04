@@ -1,4 +1,5 @@
-goofyversion = "Version: Semi ReWrote"
+---Fixed All the issues---
+goofyversion = "Version: ReWrote Done"
 getgenv().SecureMode = true
 
 local ws = game:GetService('Workspace')

@@ -58,18 +58,32 @@ local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shle
 
 local Window = Rayfield:CreateWindow({
     Name = "GuraHub Reborn | Miami Florida",
-    LoadingTitle = "GuraHub Reborn Welcomes you.",
-    LoadingSubtitle = "by Awaken/lobox",
-    KeySystem = true,
-    KeySettings = {
-        Title = "GuraHub",
-        Subtitle = "Key System",
-        Note = "Welcome to GuraHub Reborn",
-        Key = "GuraHub1213412412" and "Owner" 
-    }
+	LoadingTitle = "GuraHub Reborn Welcomes you.",
+	LoadingSubtitle = "by GuraHub Reborn Team.",
+	ConfigurationSaving = {
+		Enabled = true,
+		FolderName = nil, 
+		FileName = "GuraHub"
+	},
+        Discord = {
+        	Enabled = true,
+        	Invite = "https://discord.gg/6CD99r6t", 
+        	RememberJoins = true 
+        },
+	KeySystem = false, 
+	KeySettings = {
+		Title = "GuraHub",
+		Subtitle = "Key System",
+		Note = "Yayeet",
+		FileName = "GuraHub Key",
+		SaveKey = true,
+		GrabKeyFromSite = true, 
+		Key = 'https://pastebin.com/qxNhMjky'
+	}
 })
 
 Rayfield:Notify("Loading Tabs", "Please Wait")
+wait(1)
 wait(1)
 
 local Player = Window:CreateTab("Player Locals")
@@ -371,6 +385,7 @@ Auto:CreateToggle({
 	Name = "AutoFarm Cleaning",
 	CurrentValue = false,
 	Callback = function(value)
+        Rayfield:Notify("Get the Job Once.","Yes.")
         getgenv().HaroldsCleaning = value
         spawn(function() -- OTherwise u cannot turn it off
             while getgenv().HaroldsCleaning do task.wait()
@@ -406,6 +421,103 @@ Auto:CreateToggle({
                 end
             end
         end)
+    end,
+})
+
+Auto:CreateToggle({
+	Name = "AutoFarm Cleaning[Old]",
+	CurrentValue = false,
+	Callback = function(value)
+        getgenv().Autofarm = value -- To turn off change the true by 'false'
+
+        for i,v in pairs(ws.MapStuff.Jobs.HaroldsCleaning.CleaningParts:GetChildren()) do
+            v.Prompt.RequiresLineOfSight = false
+        end
+        while getgenv().Autofarm do
+            --if getgenv().AutoInvisible == true then
+                ---getinvisibility()
+            --end
+            gui = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("Harolds Cleaning Job")
+            if gui then
+                for i,v in pairs(ws.MapStuff.Jobs.HaroldsCleaning.CleaningParts:GetChildren()) do
+                    if getgenv().Autofarm == true then -- I added it since it didnt stopped instantly if u toggle it oof on the gui
+                        v.Prompt.RequiresLineOfSight = false
+                        local tool = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Broom") or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Broom")
+                        if tool then
+                            humanoid = game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid")
+                            humanoid:EquipTool(tool)    
+                            if v.Handler.Cleaned.Value == false then
+                                hum = game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                                if hum then
+                                    if game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Anchored == false then
+                                        if getgenv().SafeAutofarm == true then
+                                            pe = v.Position
+                                            --fireproximityprompt(v.Prompt)
+                                            wait(0.1)
+                                            if getgenv().SafeAutofarm == true then
+                                                if game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                                                    if getgenv().Methode == "Under" then
+                                                        wait(0.1)
+                                                        game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(pe)*CFrame.new(0,-8,0)}):Play()
+                                                        wait(0.1)
+                                                        fireproximityprompt(v.Prompt)
+                                                    elseif getgenv().Methode == "Above" then
+                                                        wait(0.1)
+                                                        game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(pe)*CFrame.new(0,3,0)}):Play()
+                                                        --game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame*CFrame.new(2,0,0)
+                                                        --wait(0.5)
+                                                        wait(0.2)
+                                                        fireproximityprompt(v.Prompt)
+                                                        wait(0.1)
+                                                        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.new(0,17,0)
+                                                    end
+                                                end
+                                            end
+                                        elseif not getgenv().SafeAutofarm == true then
+                                            pe = v.Position
+                                            game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(pe)*CFrame.new(0,3,0)}):Play()
+                                            --game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame*CFrame.new(2,0,0)
+                                            --wait(0.5)
+                                            wait(0.2)
+                                            fireproximityprompt(v.Prompt)
+                                        elseif getgenv().SafeAutofarm == nil then
+                                            pe = v.Position
+                                            game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(pe)*CFrame.new(0,3,0)}):Play()
+                                            --game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame*CFrame.new(2,0,0)
+                                            --wait(0.5)
+                                            wait(0.2)
+                                            fireproximityprompt(v.Prompt)
+                                        end
+                                    elseif game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Anchored == true then
+                                        --warn("User Is In Interaction!")
+                                    end
+                                end
+                            end
+                        elseif not tool then
+                            --warn("Job Reseted, Player died [NO BROOM DETECTED]")
+                            GetHaroldJob()
+                        end
+                    end
+                    wait(0.5)
+                end
+            elseif game:GetService("Players").LocalPlayer.Settings.Character.Job.Value == "Jobless" then
+                GetHaroldJob()
+            elseif game:GetService("Players").LocalPlayer.Settings.Character.Job.Value == "None" then
+                GetHaroldJob()
+            elseif not gui then
+                GetHaroldJob()
+            else
+                --warn("Job Must Be Jobless or Harolds Cleaning Job [UNKNOW JOB DETECTED] : "..game:GetService("Players").LocalPlayer.Settings.Character.Job.Value.."")
+                GetHaroldJob()
+                --warn("Trying to get Harolds Cleaning Job!")
+            end
+            wait(1)
+        end
+        if getgenv().Autofarm == true then
+            oldcfforautofarm = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position
+        elseif getgenv().Autofarm == false then
+            game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {CFrame = CFrame.new(oldcfforautofarm)}):Play()
+        end
     end,
 })
 
@@ -1063,6 +1175,3 @@ Misc:CreateButton({
         getgenv().AntiUC = false
 	end,
 })
-
-
-
